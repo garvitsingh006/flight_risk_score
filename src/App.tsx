@@ -161,7 +161,7 @@ function App() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center space-x-3">
             <Plane className="w-8 h-8 text-blue-600" />
-            <h1 className="text-2xl font-bold text-black-900">Aircraft Risk Predictor</h1>
+            <h1 className="text-2xl font-bold text-black-900">Aircraft Risk Scorer</h1>
           </div>
         </div>
       </div>
