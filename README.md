@@ -1,69 +1,115 @@
-# React + TypeScript + Vite
+# ✈️ Flight Risk Scorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based tool that predicts the **risk percentage of an aircraft flight** based on various features such as weather conditions, aircraft specifications, registration state, and time-related factors.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- Predicts crash risk **as a percentage**
+- Based on real accident data and machine learning
+- Frontend built with **React + Tailwind CSS**
+- Backend powered by **Node.js** and **Python (XGBoost model)**
+- Simple, responsive UI
+- Supports manual and automated input features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🧠 Model
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Preprocessing with `Pipeline` and `ColumnTransformer`
+- Model: `XGBClassifier` with calibrated outputs
+- Input features include:
+  - Weather: temperature, precipitation, wind
+  - Aircraft: weight category, engine type, registration
+  - Time: hour, season, weekend, night
+  - Interaction features (auto-calculated): e.g., `precip × wind`
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🏗️ Project Structure
+
+```
+flight_risk_score/
+├── dist/                  # Production build (after `vite build`)
+├── src/                   # Frontend React source code
+│   └── App.tsx
+├── server.js              # Express backend
+├── predict.py             # Python script for model inference
+├── final_model.pkl        # Trained and serialized model
+├── package.json
+├── tailwind.config.js
+├── postcss.config.js
+└── README.md              # You're here
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Setup & Run
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone the repo
+
+```bash
+git clone <your-repo-url>
+cd flight_risk_score
 ```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Build frontend
+
+```bash
+npm run build
+```
+
+### 4. Start backend
+
+```bash
+node server.js
+```
+
+> The app will run at [http://localhost:3001](http://localhost:3001)
+
+---
+
+## 🐍 Python Setup
+
+Ensure Python is installed, then:
+
+```bash
+pip install -r requirements.txt
+```
+
+**requirements.txt**
+```
+xgboost
+pandas
+joblib
+scikit-learn==1.6.1
+```
+
+---
+
+## 🧠 Notes
+
+- Interaction features are computed automatically from primary inputs
+- Backend uses `child_process.spawn` to run Python script
+- Ensure `final_model.pkl` was saved using the same scikit-learn version used at runtime
+
+---
+
+## 📌 Future Work
+
+- Confidence interval for predictions
+- Real-time weather API integration
+- Docker support & live deployment
+
+---
+
+## 🛡️ Disclaimer
+
+This is a **demo project** based on historical flight data. It should **not** be used for real-world aviation safety decisions.
