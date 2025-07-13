@@ -39,7 +39,6 @@ flight_risk_score/
 ├── final_model.pkl        # Trained and serialized model
 ├── package.json
 ├── tailwind.config.js
-├── postcss.config.js
 └── README.md              # You're here
 ```
 
