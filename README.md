@@ -59,10 +59,10 @@ cd flight_risk_score
 npm install
 ```
 
-### 3. Build frontend
+### 3. Run frontend (dev purposes)
 
 ```bash
-npm run build
+npm run dev
 ```
 
 ### 4. Start backend
